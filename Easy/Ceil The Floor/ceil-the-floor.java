@@ -53,28 +53,24 @@ class Pair {
 class Solve {
     Pair getFloorAndCeil(int[] arr, int n, int x) {
         // code here
-        int floor = 0, ceil = 0;
-        boolean foundFloor = false, foundCeil = false;
         int min = Integer.MIN_VALUE, max = Integer.MAX_VALUE;
-        for(int i = 0; i < n; i++)
-        {
-            if(arr[i] <= x && arr[i] >= min)
-            {
-                min = arr[i];
-                foundFloor = true;
-            }
-            if(arr[i] >= x && arr[i] <= max)
-            {
-                max = arr[i];
-                foundCeil = true;
-            }
-        }
-        
-        floor = (foundFloor == true)? min: -1;
-        ceil = (foundCeil == true)? max: -1;
-        
-        return new Pair(floor, ceil);
-
+        int floor = -1, ceil = -1;
+       for(int i = 0; i < n; i++)
+       {
+           if(arr[i] <= x && arr[i] >= min)
+           {
+               floor = arr[i];
+               min = arr[i];
+           }
+           
+           if(arr[i] >= x && arr[i] <= max)
+           {
+               ceil = arr[i];
+               max = arr[i];
+           }
+       }
+       
+       return new Pair(floor, ceil);
     }
 }
 
