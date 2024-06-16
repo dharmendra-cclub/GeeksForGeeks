@@ -38,45 +38,42 @@ public class Main {
 class Solution {
     int count(int[] arr, int n, int x) {
         // code here
-        int counter = 0;
-        int size = n;
-        int l = 0, u = size - 1;
+        int l = 0, u = n - 1;
+        int upper_bound = n, lower_bound = n;
+
+        //calculating lower bound
         while(l <= u)
         {
             int mid = (l+u)/2;
-            if(x == arr[mid])
+            if(arr[mid] >= x)
             {
-                int initial = mid, last = mid + 1;
-                while(initial >= 0)
-                {
-                    if(arr[initial] == x)
-                    {
-                        counter++;
-                        initial--;
-                    }
-                    else 
-                        break;
-                }
-
-                while(last < size)
-                {
-                    if(arr[last] == x)
-                    {
-                        counter++;
-                        last++;
-                    }
-                    else
-                        break;
-                }
-                break;
+                lower_bound = mid;
+                u = mid - 1;
             }
 
-            if(x > arr[mid])
-                l = mid + 1;
             else
-                u = mid - 1;
+                l = mid + 1;
         }
 
-        return counter;
+        //calculating upper bound
+        l = 0;
+        u = n - 1;
+        while(l <= u)
+        {
+        int mid = (l+u)/2;
+        if(arr[mid] > x)
+        {
+            upper_bound = mid;
+            u = mid - 1;
+        }
+
+        else
+            l = mid + 1;
+        }
+        
+        if(lower_bound == n || arr[lower_bound] != x)
+            return 0;
+
+        return  upper_bound - lower_bound;
     }
 }
